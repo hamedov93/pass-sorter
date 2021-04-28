@@ -3,6 +3,7 @@
 namespace Hamedov\PassSorter;
 
 use Hamedov\PassSorter\Transportations\TransportationFactory;
+use Hamedov\PassSorter\Sorts\DefaultSort;
 
 /**
  * Main Pass class
@@ -23,6 +24,12 @@ class Pass
 	private $result;
 
 	/**
+	 * Sorter class used to sort boardings
+	 * @var \Hamedov\PassSorter\Contracts\SortInterface
+	 */
+	private $sorter;
+
+	/**
 	 * Construct a new path instance with its boardings
 	 * @param array $boardings
 	 */
@@ -31,50 +38,21 @@ class Pass
 		$this->boardings = array_map(function($boarding) {
 			return TransportationFactory::create((array) $boarding);
 		}, $boardings);
+
+		$this->sorter = new DefaultSort;
 	}
 
 	/**
 	 * Sort the boardings and store the result
 	 * @return array
 	 */
-	public function sort($boardings = null): self
+	public function sort(): self
 	{
-		$boardings = $boardings ?? $this->boardings;
-		if (empty($boardings)) {
+		if (empty($this->boardings)) {
 			return $this;
 		}
 
-		// We will push boardings into the result array
-		// each in its appropriate location
-		if (empty($this->result)) {
-			$this->result = [];
-			$this->unsorted = [];
-			$this->result[] = array_shift($boardings);
-		}
-		
-		foreach ($boardings as $key => $boarding) {
-			$from = reset($this->result)->from;
-			$to = end($this->result)->to;
-			if ($boarding->from === $to || $boarding->to === $from) {
-				if ($boarding->from === $to) {
-					array_push($this->result, $boarding);
-				} elseif ($boarding->to === $from) {
-					array_unshift($this->result, $boarding);
-				}
-
-				if (isset($this->unsorted[$key])) {
-					unset($this->unsorted[$key]);
-				}
-			} else {
-				$this->unsorted[] = $boarding;
-			}
-		}
-
-		if (!empty($this->unsorted)) {
-			$this->sort($this->unsorted);
-		}
-
-
+		$this->result = $this->sorter->sort($this->boardings);
 		return $this;
 	}
 
