@@ -48,11 +48,10 @@ class Pass
 	 */
 	public function sort(): self
 	{
-		if (empty($this->boardings)) {
-			return $this;
+		if (!empty($this->boardings)) {
+			$this->result = $this->sorter->sort($this->boardings);
 		}
 
-		$this->result = $this->sorter->sort($this->boardings);
 		return $this;
 	}
 

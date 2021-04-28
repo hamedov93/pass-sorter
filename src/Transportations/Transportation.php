@@ -73,6 +73,6 @@ abstract class Transportation implements TransportationInterface
 	 */
 	public function __toString()
 	{
-		return $this->from . ' to ' . $this->to;
+		return $this->getInstructions();
 	}
 }
