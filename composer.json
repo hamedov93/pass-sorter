@@ -1,0 +1,19 @@
+{
+    "name": "hamedov93/pass_sorter",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Mohamed Hamed",
+            "email": "mohamedhamed1789@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hamedov\\PassSorter\\": "src/"
+        }
+    }
+}
