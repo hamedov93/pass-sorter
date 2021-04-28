@@ -17,6 +17,10 @@ class TransportationFactory
 			throw new RuntimeException('The provided transportation is not supported.');
 		}
 
+		if (!isset($data['type'], $data['number'], $data['from'], $data['to'])) {
+			throw new RuntimeException('Please provide type, number, from and to fields for all transportations');
+		}
+
 		return new $className($data);
 	}
 }
