@@ -8,7 +8,7 @@ use Hamedov\PassSorter\Pass;
 // as an argument we will use it.
 // Otherwise we will be using our sample data.
 
-$inputFile = __DIR__ . '/input.json';
+$inputFile = __DIR__ . '/../input.json';
 if (isset($argv[1]) && file_exists($argv[1])) {
 	$inputFile = $argv[1];
 }

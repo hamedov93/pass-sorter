@@ -7,6 +7,10 @@ namespace Hamedov\PassSorter\Transportations;
  */
 class Airplane extends Transportation
 {
+	/**
+	 * Get onboarding instructions for transportation
+	 * @return string
+	 */
 	public function getInstructions(): string
 	{
 		$instructions = 'From ' . $this->from . ', take ' .
