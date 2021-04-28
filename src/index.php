@@ -16,6 +16,8 @@ if (isset($argv[1]) && file_exists($argv[1])) {
 // Get json file contents
 $inputJson = file_get_contents($inputFile);
 
+// Decode file contents into php array and shuffle the array.
+// Followed by sorting and output as string.
 try {
 	$boardings = json_decode($inputJson);
 	shuffle($boardings);
